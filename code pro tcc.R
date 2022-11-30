@@ -1,8 +1,15 @@
-library(wordcloud2)
-library(tm)
-library(topicmodels)
-library(dplyr)
-library(ggplot2)
+pacotes <- c("wordcloud2","tidyverse","tm","topicmodels","dplyr","ggplot2",
+            "tidytext","textstem", "writexl")
+
+if(sum(as.numeric(!pacotes %in% installed.packages())) != 0){
+  instalador <- pacotes[!pacotes %in% installed.packages()]
+  for(i in 1:length(instalador)) {
+    install.packages(instalador, dependencies = T)
+    break()}
+  sapply(pacotes, require, character = T) 
+} else {
+  sapply(pacotes, require, character = T) 
+}
 
 #Criando o Corpus
 ba_corpus <- Corpus(VectorSource(ba_1000_clean))
